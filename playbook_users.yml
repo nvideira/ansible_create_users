@@ -1,0 +1,19 @@
+- name: create users and add public keys
+  hosts: all
+  become: yes
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: "create users"
+      user:
+        name: "{{ item.name }}"
+        state: present
+      with_items: "{{ new_users }}"
+
+    - name: add public keys to authorized_keys
+      authorized_key:
+        user: "{{ item.name }}"
+        state: present
+        key: "{{ item.public_key }}"
+      with_items: "{{ new_users }}"

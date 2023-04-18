@@ -1,0 +1,7 @@
+new_users:
+  - name: <user1>
+    public_key: "{{ lookup('file', '/path/to/file.pub') }}"
+  - name: <user2>
+    public_key: "{{ lookup('file', '/path/to/file.pub') }}"
+  - name: <user3>
+    public_key: "{{ lookup('file', '/path/to/file.pub') }}"
