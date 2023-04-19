@@ -17,3 +17,11 @@
         state: present
         key: "{{ item.public_key }}"
       with_items: "{{ new_users }}"
+
+    - name: Grant sudo permissions to new users
+      become_user: root
+      lineinfile:
+        dest: "/etc/sudoers"
+        line: "{{ item.name }} ALL=(ALL) NOPASSWD:ALL"
+        validate: "visudo -cf %s"
+      with_items: "{{ new_users }}"
